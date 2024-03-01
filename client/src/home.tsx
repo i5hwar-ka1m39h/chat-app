@@ -6,7 +6,7 @@ export default function Home(){
     const navigate = useNavigate()
     const submitName = () =>{
         localStorage.setItem("username", user)
-        window.location.href = "/chatroom"
+        navigate("/chatroom")
     }
     return(
         <div>

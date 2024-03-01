@@ -15,8 +15,8 @@ export default function ChatRoom(){
       const newSocket = io('http://localhost:4000')
       setSocket(newSocket);
         
-      newSocket.on('message', (message)=>{
-        setChat((oldchat:any[])=>[...oldchat, message])
+      newSocket.on('message', (data: any)=>{
+        setChat((oldchat:any[])=>[...oldchat, data ])
       })
   
       return()=>{
@@ -33,7 +33,7 @@ export default function ChatRoom(){
   
       console.log(message);
       
-      socket.emit('message', message);
+      socket.emit('message', {message: message, username:user});
       setMessage('');
     }
     
@@ -46,7 +46,8 @@ export default function ChatRoom(){
         <div style={{width:400, height:400, border:'2px solid black'}}>
          {chat.map((x, index)=>(
           <div key={index}>
-            <p>{user}</p><p>{x}</p>
+            <p>{x.username}</p><p>{x.timeStamp}</p>
+            <h2>{x.message}</h2>
           </div>
          ))}
         </div><br/>

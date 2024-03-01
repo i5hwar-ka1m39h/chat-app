@@ -22,9 +22,10 @@ app.get("/api", (req, res)=>{
 io.on("connection", (socket:Socket) =>{
     console.log('a user connected');
 
-    socket.on("message", (message: string)=>{
-        console.log(message);
-       io.emit("message", message); 
+    socket.on("message", ({message, username})=>{
+        console.log(`${message}, ${username}`);
+        const timeStamp = new Date().toLocaleString();
+       socket.broadcast.emit("message", {message, username, timeStamp}); 
     })
 
     socket.on('disconnect', ()=>{
